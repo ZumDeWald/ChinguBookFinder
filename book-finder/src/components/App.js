@@ -84,6 +84,12 @@ class App extends Component {
              </ul>)
          /* End of Ternary */}
         </section>
+        <section id="footer">
+          <a href="https://github.com/ZumDeWald/ChinguBookFinder"
+             target="_blank"
+             rel="noopener noreferrer"
+             >Source Code</a>
+        </section>
       </main>
     );
   }

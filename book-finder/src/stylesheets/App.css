@@ -20,6 +20,16 @@ video {
   max-width: 100%;
 }
 
+/* Remove decoration from links */
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+  color: var(--color-main);
+}
+
 /* Global variables */
 :root {
   --color-main: #DC0000;
@@ -98,6 +108,10 @@ video {
   border-bottom: solid 2px #000;
 }
 
+.result-item:last-of-type {
+  border: none;
+}
+
 .result-item-info {
   display: flex;
   flex-flow: column nowrap;
@@ -116,4 +130,12 @@ video {
   width: 100%;
   padding: 0;
   margin: 0;
+}
+
+#footer {
+  grid-column: c1 / c2;
+  grid-row: r3 / r4;
+  width: 100%;
+  border-top: solid 2px #000;
+  text-align: center;
 }
