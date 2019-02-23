@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 
 class Search extends Component {
 
-  state = {
-    searchResults: [],
-    query: ''
+  constructor(props){
+    super(props);
+    this.state = {
+      query: ''
+    }
+
   }
 
   //updateQuery listens for the change in input and sets state, then triggers result chain
