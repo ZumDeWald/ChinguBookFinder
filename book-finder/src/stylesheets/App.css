@@ -85,14 +85,15 @@ video {
 
 .result-list {
   list-style: none;
-  margin-left: -50px;
+  width: 100%;
+  margin-left: -25px;
 }
 
 .result-item {
   display: flex;
   flex-flow: row nowrap;
-  width: 100%;
-  padding-bottom: 0.8em;
+  width: 95%;
+  padding-bottom: 1em;
   margin: 1em auto;
   border-bottom: solid 2px #000;
 }
@@ -101,10 +102,18 @@ video {
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
-  align-items: center;
-  padding-left: 0.2em;
+  align-items: flex-start;
+  padding-left: 0.5em;
 }
 
 .result-title {
-  font-size: 1em;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.result-author {
+  width: 100%;
+  padding: 0;
+  margin: 0;
 }

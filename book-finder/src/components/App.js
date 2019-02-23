@@ -75,9 +75,9 @@ class App extends Component {
                    <img
                      alt={index} src={result.volumeInfo.imageLinks.smallThumbnail} />
                    <span className="result-item-info">
-                     <h3 className="result-title"><strong>
-                     {result.volumeInfo.title}
-                   </strong></h3>
+                     <h4 className="result-title"><strong>
+                     {result.volumeInfo.title}</strong></h4>
+                   <p className="result-author"><em>{result.volumeInfo.authors[0]}</em></p>
                    </span>
                </li>
               ))}
