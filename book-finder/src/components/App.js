@@ -43,7 +43,6 @@ class App extends Component {
   handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       this.getResults(this.state.query);
-      console.log("Doing It");
     };
   };
 
@@ -69,12 +68,20 @@ class App extends Component {
           {/* Ternary to display message or results dependant on if this.state.results empty */
             (!results) ?
            <div className="no-result">Please provide a search term</div> :
-           (results.map( (result, index) => (
-             <div className="result"
-                  key={index}>
-               {result.volumeInfo.title}
-             </div>
-           )))
+           (<ul className="result-list">
+               {results.map( (result, index) => (
+               <li className="result-item"
+                   key={index}>
+                   <img
+                     alt={index} src={result.volumeInfo.imageLinks.smallThumbnail} />
+                   <span className="result-item-info">
+                     <h3 className="result-title"><strong>
+                     {result.volumeInfo.title}
+                   </strong></h3>
+                   </span>
+               </li>
+              ))}
+             </ul>)
          /* End of Ternary */}
         </section>
       </main>
