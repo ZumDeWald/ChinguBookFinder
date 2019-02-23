@@ -27,7 +27,7 @@ class App extends Component {
 
   //Fetch API request
   getResults = (searchInput) => {
-    fetch("https://www.googleapis.com/books/v1/volumes?q=quilting&maxResults=10")
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}&maxResults=10`)
     .then( response => {
       response.json()
       .then((responseData) => {
@@ -70,7 +70,8 @@ class App extends Component {
             (!results) ?
            <div className="no-result">Please provide a search term</div> :
            (results.map( (result, index) => (
-             <div className="result">
+             <div className="result"
+                  key={index}>
                {result.volumeInfo.title}
              </div>
            )))
