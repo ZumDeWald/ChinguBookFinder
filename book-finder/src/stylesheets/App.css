@@ -52,8 +52,8 @@ a:active {
   grid-column: c1 / c2;
   grid-row: r1 / r2;
   width: 100%;
-  margin: 0 auto;
-  background-color: gray;
+  margin: 0;
+  background: radial-gradient(circle at 50%, var(--color-light), var(--color-main));
 }
 
 .search-bar {
