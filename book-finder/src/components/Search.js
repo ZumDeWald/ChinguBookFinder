@@ -7,7 +7,6 @@ class Search extends Component {
     this.state = {
       query: ''
     }
-
   }
 
   //updateQuery listens for the change in input and sets state, then triggers result chain
