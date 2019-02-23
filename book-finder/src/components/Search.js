@@ -19,10 +19,10 @@ class Search extends Component {
     const { query } = this.state;
 
     return (
-
       <div id="search">
-        <div className="search-books-input-wrapper">
+        <div className="search-bar">
           <input
+            className="search-input"
             type="text"
             placeholder="Search by title or author"
             value={query}

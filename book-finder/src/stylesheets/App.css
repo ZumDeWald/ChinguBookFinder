@@ -31,8 +31,8 @@ video {
 /* Grid setup on App Container */
 #app-container {
   display: grid;
-  grid-tempate-columns: [c1] 100% [c2];
-  grid-template-rows: [r1] 100px [r2] 1fr [r3] 50px [r4];
+  grid-template-columns: [c1] 100% [c2];
+  grid-template-rows: [r1] 60px [r2] 1fr [r3] 50px [r4];
   width: 100%;
   padding: 0;
   margin: 0;

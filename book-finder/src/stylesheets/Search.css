@@ -5,5 +5,26 @@
   grid-column: c1 / c2;
   grid-row: r1 / r2;
   width: 100%;
-  margin: 0.5em auto;
+  margin: 0 auto;
+  background-color: gray;
+}
+
+.search-bar {
+  display: flex;
+  flex-flow:column nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 1em auto;
+}
+
+.search-input {
+  width: 200px;
+  padding: 0.5em;
+  margin: auto;
+  background-color: #000;
+  color: #fff;
+  border: solid 1px #000;
+  border-radius: 1em;
+  text-align: center;
 }
