@@ -65,3 +65,11 @@ video {
   border-radius: 1em;
   text-align: center;
 }
+
+#results {
+  grid-column: c1 / c2;
+  grid-row: r2 / r3;
+  width: 100%;
+  min-height: calc(100vh - 110px);
+  margin: 0 auto;
+}

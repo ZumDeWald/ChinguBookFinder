@@ -11,6 +11,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
+      results: [],
       query: ''
     }
   }
@@ -26,22 +27,32 @@ class App extends Component {
 
   render() {
     //Destructuring
-    const { query } = this.state;
+    const { results, query } = this.state;
 
     return (
-      <div id="app-container">
-      <div id="search">
-        <div className="search-bar">
-          <input
-            className="search-input"
-            type="text"
-            placeholder="Search by title or author"
-            value={query}
-            onChange={(e) => this.updateQuery(e.target.value)}
-          />
-        </div>
-      </div>
-      </div>
+      <main id="app-container">
+        <section id="search">
+          <div className="search-bar">
+            <input
+              className="search-input"
+              type="text"
+              placeholder="Search by title or author"
+              value={query}
+              onChange={(e) => this.updateQuery(e.target.value)}
+            />
+          </div>
+        </section>
+        <section id="results">
+          {(!results) ?
+           <div>Please provide a search term</div> :
+           (results.map( (result, index) => (
+             <div className="result">
+               {result.item.volumeInfo.title}
+             </div>
+           )))
+         }
+        </section>
+      </main>
     );
   }
 }
