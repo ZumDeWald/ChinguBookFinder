@@ -11,7 +11,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      results: [],
+      results: '',
       query: ''
     }
   }
@@ -43,14 +43,15 @@ class App extends Component {
           </div>
         </section>
         <section id="results">
-          {(!results) ?
-           <div>Please provide a search term</div> :
+          {/* Ternary to display message or results dependant on if the results in state are empty */
+            (!results) ?
+           <div className="no-result">Please provide a search term</div> :
            (results.map( (result, index) => (
              <div className="result">
                {result.item.volumeInfo.title}
              </div>
            )))
-         }
+         /* End of Ternary */}
         </section>
       </main>
     );
