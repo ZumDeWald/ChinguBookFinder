@@ -1,0 +1,9 @@
+/* Import variables and general style */
+@import 'App.css';
+
+#search {
+  grid-column: c1 / c2;
+  grid-row: r1 / r2;
+  width: 100%;
+  margin: 0.5em auto;
+}

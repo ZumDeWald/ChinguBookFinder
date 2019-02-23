@@ -5,11 +5,12 @@ import Search from './Search.js';
 
 //Stylesheets
 import '../stylesheets/App.css';
+import '../stylesheets/Search.css';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div id="app-container">
         <Search />
       </div>
     );
