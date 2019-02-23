@@ -14,16 +14,25 @@ class App extends Component {
       results: '',
       query: ''
     }
-  }
+  };
 
   //updateQuery listens for the change in input and sets state, then triggers result chain
   updateQuery = (query) => {
     this.setState({ query : query });
-  }
+  };
 
-  updateResults = (newResults) => {
-    this.setState({ results : newResults })
-  }
+  updateResults = (response) => {
+    this.setState({ results : response })
+  };
+
+  //Fetch API request
+  getResults = (searchInput) => {
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}`)
+    .then( response => {
+      this.updateResults(response);
+    })
+    .catch( error => console.log(error));
+  };
 
   render() {
     //Destructuring
