@@ -11,7 +11,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      results: '',
+      results: null,
       query: ''
     }
   };
@@ -27,11 +27,24 @@ class App extends Component {
 
   //Fetch API request
   getResults = (searchInput) => {
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}`)
+    fetch("https://www.googleapis.com/books/v1/volumes?q=quilting&maxResults=10")
     .then( response => {
-      this.updateResults(response);
+      response.json()
+      .then((responseData) => {
+        console.log(responseData);
+        let results = responseData.items
+        this.updateResults(results);
+      })
     })
     .catch( error => console.log(error));
+  };
+
+  //Handle key press from search bar
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this.getResults(this.state.query);
+      console.log("Doing It");
+    };
   };
 
   render() {
@@ -48,6 +61,7 @@ class App extends Component {
               placeholder="Search by title or author"
               value={query}
               onChange={(e) => this.updateQuery(e.target.value)}
+              onKeyPress={this.handleKeyPress}
             />
           </div>
         </section>
@@ -57,7 +71,7 @@ class App extends Component {
            <div className="no-result">Please provide a search term</div> :
            (results.map( (result, index) => (
              <div className="result">
-               {result.item.volumeInfo.title}
+               {result.volumeInfo.title}
              </div>
            )))
          /* End of Ternary */}
