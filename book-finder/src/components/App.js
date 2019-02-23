@@ -43,7 +43,7 @@ class App extends Component {
           </div>
         </section>
         <section id="results">
-          {/* Ternary to display message or results dependant on if the results in state are empty */
+          {/* Ternary to display message or results dependant on if this.state.results empty */
             (!results) ?
            <div className="no-result">Please provide a search term</div> :
            (results.map( (result, index) => (
