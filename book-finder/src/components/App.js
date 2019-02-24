@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 
-//Components
-
-
 //Stylesheets
 import '../stylesheets/App.css';
 
@@ -16,11 +13,12 @@ class App extends Component {
     }
   };
 
-  //updateQuery listens for the change in input and sets state, then triggers result chain
+  //updateQuery listens for the change in input and sets state
   updateQuery = (query) => {
     this.setState({ query : query });
   };
 
+  //Setstate with current results from search
   updateResults = (response) => {
     this.setState({ results : response })
   };
