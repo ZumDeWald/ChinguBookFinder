@@ -54,10 +54,11 @@ class App extends Component {
       <main id="app-container">
         <section id="search">
           <div className="search-bar">
+            <h1 className="header">The 10 Book Search</h1>
             <input
               className="search-input"
               type="text"
-              placeholder="Search by title or author"
+              placeholder="Type keyword and press enter"
               value={query}
               onChange={(e) => this.updateQuery(e.target.value)}
               onKeyPress={this.handleKeyPress}
@@ -67,22 +68,39 @@ class App extends Component {
         <section id="results">
           {/* Ternary to display message or results dependant on if this.state.results empty */
             (!results) ?
-           <div className="no-result">Please provide a search term</div> :
-           (<ul className="result-list">
-               {results.map( (result, index) => (
-               <li className="result-item"
-                   key={index}>
-                   <img
-                     alt={index} src={result.volumeInfo.imageLinks.smallThumbnail} />
-                   <span className="result-item-info">
-                     <h4 className="result-title"><strong>
-                     {result.volumeInfo.title}</strong></h4>
-                   <p className="result-author"><em>{result.volumeInfo.authors[0]}</em></p>
-                   </span>
-               </li>
-              ))}
-             </ul>)
-         /* End of Ternary */}
+          <div className="no-result">Please provide a search term</div> :
+          (<ul className="result-list">
+            {results.map( (result, index) => (
+            <li className="result-item"
+                 key={index}>
+
+              {/* Ternary to display cover if available */
+              (!!result.volumeInfo.imageLinks) ?
+              <img alt={index}
+                   src={result.volumeInfo.imageLinks.smallThumbnail} />
+                : <img alt={index} src="http://via.placeholder.com/128x193?text=No%20Cover" />
+              /* End of cover ternary */}
+
+                <span className="result-item-info">
+                  <h4 className="result-title"><strong> {result.volumeInfo.title} </strong></h4>
+
+                  {/* Ternary to display author if available */
+                  (!!result.volumeInfo.authors) ?
+                  <p className="result-info">
+                  <em>{result.volumeInfo.authors[0]}</em></p>
+                  : <p className="result-info">
+                  <em>Author unavailable</em></p>
+                  /* End of author ternary */}
+
+                  {/* Ternary to display price if availabe */ (!!result.saleInfo.listPrice) ?
+                  <p className="result-info">Price: {result.saleInfo.listPrice.amount}</p>
+                  : <p className="result-info">Not for sale</p>
+                  /* End of price ternary */}
+                </span>
+              </li>
+            ))}
+          </ul>)
+          /* End of search criteria Ternary */}
         </section>
         <section id="footer">
           <a href="https://github.com/ZumDeWald/ChinguBookFinder"
