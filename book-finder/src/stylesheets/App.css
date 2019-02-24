@@ -133,6 +133,14 @@ a:active {
   border: none;
 }
 
+.result-image {
+  min-width: 128px;
+  max-width: 128px;
+  min-height: 192px;
+  max-height: 192px;
+  box-shadow: 2px 3px 12px #000;
+}
+
 .result-item-info {
   display: flex;
   flex-flow: column nowrap;

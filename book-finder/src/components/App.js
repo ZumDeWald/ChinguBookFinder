@@ -85,6 +85,7 @@ class App extends Component {
               {/* Ternary to display cover if available */
               (!!result.volumeInfo.imageLinks) ?
               <img alt={index}
+                   className="result-image"
                    src={result.volumeInfo.imageLinks.smallThumbnail} />
                 : <img alt={index} src="http://via.placeholder.com/128x193?text=No%20Cover" />
               /* End of cover ternary */}
