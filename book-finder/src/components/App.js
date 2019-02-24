@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 
-//Components
-
-
 //Stylesheets
 import '../stylesheets/App.css';
 
@@ -16,11 +13,12 @@ class App extends Component {
     }
   };
 
-  //updateQuery listens for the change in input and sets state, then triggers result chain
+  //updateQuery listens for the change in input and sets state
   updateQuery = (query) => {
     this.setState({ query : query });
   };
 
+  //Setstate with current results from search
   updateResults = (response) => {
     this.setState({ results : response })
   };
@@ -31,7 +29,6 @@ class App extends Component {
     .then( response => {
       response.json()
       .then((responseData) => {
-        console.log(responseData);
         let results = responseData.items
         this.updateResults(results);
       })
@@ -43,9 +40,18 @@ class App extends Component {
   handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       this.getResults(this.state.query);
-      console.log("Doing It");
     };
   };
+
+  //Handle click from search-bar icon
+  handleClick = (e) => {
+    this.getResults(this.state.query);
+  };
+
+  //Handle move screen to top of window
+  toTop = (e) => {
+    window.scrollTo(0,0);
+  }
 
   render() {
     //Destructuring
@@ -54,28 +60,70 @@ class App extends Component {
     return (
       <main id="app-container">
         <section id="search">
-          <div className="search-bar">
+          <h1 className="header">The 10 Book Search</h1>
+          <span className="search-bar">
+            <i className="fas fa-search search-icon pointer"
+               onClick={this.handleClick}></i>
             <input
               className="search-input"
               type="text"
-              placeholder="Search by title or author"
+              placeholder="Type keyword and press enter"
               value={query}
               onChange={(e) => this.updateQuery(e.target.value)}
               onKeyPress={this.handleKeyPress}
             />
-          </div>
+          </span>
         </section>
+
         <section id="results">
           {/* Ternary to display message or results dependant on if this.state.results empty */
             (!results) ?
-           <div className="no-result">Please provide a search term</div> :
-           (results.map( (result, index) => (
-             <div className="result"
-                  key={index}>
-               {result.volumeInfo.title}
-             </div>
-           )))
-         /* End of Ternary */}
+          <div className="no-result">Please provide a search term</div> :
+          (<ul className="result-list">
+            {results.map( (result, index) => (
+            <li className="result-item"
+                 key={index}>
+
+              {/* Ternary to display cover if available */
+              (!!result.volumeInfo.imageLinks) ?
+              <img alt={index}
+                   className="result-image"
+                   src={result.volumeInfo.imageLinks.smallThumbnail} />
+                : <img alt={index} src="http://via.placeholder.com/128x193?text=No%20Cover" />
+              /* End of cover ternary */}
+
+                <span className="result-item-info">
+                  <h4 className="result-title"><strong> {result.volumeInfo.title} </strong></h4>
+
+                  {/* Ternary to display author if available */
+                  (!!result.volumeInfo.authors) ?
+                  <p className="result-info">
+                  <em>{result.volumeInfo.authors[0]}</em></p>
+                  : <p className="result-info">
+                  <em>Author Unavailable</em></p>
+                  /* End of author ternary */}
+
+                  {/* Ternary to display price if availabe */ (!!result.saleInfo.listPrice) ?
+                  <p className="result-info">Price: {result.saleInfo.listPrice.amount}</p>
+                  : <p className="result-info">Not for sale</p>
+                  /* End of price ternary */}
+
+                  <a href={result.volumeInfo.infoLink}
+                    target="_blank"
+                    rel="noopener noreferrer">More Info</a>
+                </span>
+              </li>
+            ))}
+          </ul>)
+          /* End of search criteria Ternary */}
+          <i className="fas fa-angle-double-up top-icon pointer"
+             onClick={this.toTop}></i>
+        </section>
+        <section id="footer">
+          <a href="https://github.com/ZumDeWald/ChinguBookFinder"
+             target="_blank"
+             rel="noopener noreferrer"
+             >Source Code</a>
         </section>
       </main>
     );
