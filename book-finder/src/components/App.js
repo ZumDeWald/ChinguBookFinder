@@ -31,7 +31,6 @@ class App extends Component {
     .then( response => {
       response.json()
       .then((responseData) => {
-        console.log(responseData);
         let results = responseData.items
         this.updateResults(results);
       })
