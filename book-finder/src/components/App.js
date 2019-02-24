@@ -46,6 +46,16 @@ class App extends Component {
     };
   };
 
+  //Handle click from search-bar icon
+  handleClick = (e) => {
+    this.getResults(this.state.query);
+  };
+
+  //Handle move screen to top of window
+  toTop = (e) => {
+    window.scrollTo(0,0);
+  }
+
   render() {
     //Destructuring
     const { results, query } = this.state;
@@ -53,8 +63,10 @@ class App extends Component {
     return (
       <main id="app-container">
         <section id="search">
-          <div className="search-bar">
-            <h1 className="header">The 10 Book Search</h1>
+          <h1 className="header">The 10 Book Search</h1>
+          <span className="search-bar">
+            <i className="fas fa-search search-icon pointer"
+               onClick={this.handleClick}></i>
             <input
               className="search-input"
               type="text"
@@ -63,8 +75,9 @@ class App extends Component {
               onChange={(e) => this.updateQuery(e.target.value)}
               onKeyPress={this.handleKeyPress}
             />
-          </div>
+          </span>
         </section>
+
         <section id="results">
           {/* Ternary to display message or results dependant on if this.state.results empty */
             (!results) ?
@@ -77,6 +90,7 @@ class App extends Component {
               {/* Ternary to display cover if available */
               (!!result.volumeInfo.imageLinks) ?
               <img alt={index}
+                   className="result-image"
                    src={result.volumeInfo.imageLinks.smallThumbnail} />
                 : <img alt={index} src="http://via.placeholder.com/128x193?text=No%20Cover" />
               /* End of cover ternary */}
@@ -89,18 +103,24 @@ class App extends Component {
                   <p className="result-info">
                   <em>{result.volumeInfo.authors[0]}</em></p>
                   : <p className="result-info">
-                  <em>Author unavailable</em></p>
+                  <em>Author Unavailable</em></p>
                   /* End of author ternary */}
 
                   {/* Ternary to display price if availabe */ (!!result.saleInfo.listPrice) ?
                   <p className="result-info">Price: {result.saleInfo.listPrice.amount}</p>
                   : <p className="result-info">Not for sale</p>
                   /* End of price ternary */}
+
+                  <a href={result.volumeInfo.infoLink}
+                    target="_blank"
+                    rel="noopener noreferrer">More Info</a>
                 </span>
               </li>
             ))}
           </ul>)
           /* End of search criteria Ternary */}
+          <i className="fas fa-angle-double-up top-icon pointer"
+             onClick={this.toTop}></i>
         </section>
         <section id="footer">
           <a href="https://github.com/ZumDeWald/ChinguBookFinder"
