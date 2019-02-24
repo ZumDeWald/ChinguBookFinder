@@ -133,14 +133,10 @@ a:active {
   margin: 0;
 }
 
-.result-author {
+.result-info {
   width: 100%;
   padding: 0;
   margin: 0;
-}
-
-.flex-end {
-  justify-self: flex-end;
 }
 
 #footer {

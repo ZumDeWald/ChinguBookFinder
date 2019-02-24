@@ -83,14 +83,16 @@ class App extends Component {
                   <span className="result-item-info">
                     <h4 className="result-title">
                       <strong>{result.volumeInfo.title}</strong></h4>
-                      <p className="result-author">
-                      <em>{result.volumeInfo.authors[0]}</em></p>
-                      {/* Ternary to display price if availabe */ (result.saleInfo.saleability ===
-                        "NOT_FOR_SALE")
-                        ? <p className="result-author">Not For Sale</p>
-                        : (result.saleInfo.saleability === "FREE")
-                        ? <p className="result-author">Free</p>
-                        : <p className="result-author">Price: {result.saleInfo.listPrice.amount}</p>
+                        {/* Ternary to display author if available */
+                        (!!result.volumeInfo.authors) ?
+                        <p className="result-info">
+                        <em>{result.volumeInfo.authors[0]}</em></p>
+                        : <p className="result-info">
+                        <em>Author unavailable</em></p>
+                        /* End of author ternary */}
+                      {/* Ternary to display price if availabe */ (!!result.saleInfo.listPrice) ?
+                        <p className="result-info">Price: {result.saleInfo.listPrice.amount}</p>
+                        : <p className="result-info">Not for sale</p>
                     /* End of inner ternary */}
                    </span>
                </li>
