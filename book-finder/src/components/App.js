@@ -89,13 +89,17 @@ class App extends Component {
                   <p className="result-info">
                   <em>{result.volumeInfo.authors[0]}</em></p>
                   : <p className="result-info">
-                  <em>Author unavailable</em></p>
+                  <em>Author Unavailable</em></p>
                   /* End of author ternary */}
 
                   {/* Ternary to display price if availabe */ (!!result.saleInfo.listPrice) ?
                   <p className="result-info">Price: {result.saleInfo.listPrice.amount}</p>
                   : <p className="result-info">Not for sale</p>
                   /* End of price ternary */}
+
+                  <a href={result.volumeInfo.infoLink}
+                    target="_blank"
+                    rel="noopener noreferrer">More Info</a>
                 </span>
               </li>
             ))}
