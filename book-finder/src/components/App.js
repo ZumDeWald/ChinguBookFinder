@@ -54,10 +54,11 @@ class App extends Component {
       <main id="app-container">
         <section id="search">
           <div className="search-bar">
+            <h1 className="header">The 10 Book Search</h1>
             <input
               className="search-input"
               type="text"
-              placeholder="Search by title or author"
+              placeholder="Type keyword and press enter"
               value={query}
               onChange={(e) => this.updateQuery(e.target.value)}
               onKeyPress={this.handleKeyPress}
@@ -72,17 +73,30 @@ class App extends Component {
                {results.map( (result, index) => (
                <li className="result-item"
                    key={index}>
-                   <img
-                     alt={index} src={result.volumeInfo.imageLinks.smallThumbnail} />
-                   <span className="result-item-info">
-                     <h4 className="result-title"><strong>
-                     {result.volumeInfo.title}</strong></h4>
-                   <p className="result-author"><em>{result.volumeInfo.authors[0]}</em></p>
+                  {/* Ternary to display cover if available */
+                  (!!result.volumeInfo.imageLinks) ?
+                  <img
+                    alt={index} src={result.volumeInfo.imageLinks.smallThumbnail} />
+                  : <img
+                    alt={index} src="http://via.placeholder.com/128x193?text=No%20Cover" />
+                  /* End of cover ternary */}
+                  <span className="result-item-info">
+                    <h4 className="result-title">
+                      <strong>{result.volumeInfo.title}</strong></h4>
+                      <p className="result-author">
+                      <em>{result.volumeInfo.authors[0]}</em></p>
+                      {/* Ternary to display price if availabe */ (result.saleInfo.saleability ===
+                        "NOT_FOR_SALE")
+                        ? <p className="result-author">Not For Sale</p>
+                        : (result.saleInfo.saleability === "FREE")
+                        ? <p className="result-author">Free</p>
+                        : <p className="result-author">Price: {result.saleInfo.listPrice.amount}</p>
+                    /* End of inner ternary */}
                    </span>
                </li>
               ))}
              </ul>)
-         /* End of Ternary */}
+         /* End of search criteria Ternary */}
         </section>
         <section id="footer">
           <a href="https://github.com/ZumDeWald/ChinguBookFinder"
