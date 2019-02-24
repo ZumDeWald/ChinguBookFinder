@@ -46,6 +46,11 @@ class App extends Component {
     };
   };
 
+  //Handle click from search-bar icon
+  handleClick = (e) => {
+    this.getResults(this.state.query);
+  };
+
   render() {
     //Destructuring
     const { results, query } = this.state;
@@ -55,7 +60,8 @@ class App extends Component {
         <section id="search">
           <h1 className="header">The 10 Book Search</h1>
           <span className="search-bar">
-            <i className="fas fa-search search-icon"></i>
+            <i className="fas fa-search search-icon"
+               onClick={this.handleClick}></i>
             <input
               className="search-input"
               type="text"

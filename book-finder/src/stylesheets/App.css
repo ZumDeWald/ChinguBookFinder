@@ -93,6 +93,10 @@ a:active {
   color: #fff;
 }
 
+.search-icon:hover {
+  cursor:pointer;
+}
+
 #results {
   grid-column: c1 / c2;
   grid-row: r2 / r3;
