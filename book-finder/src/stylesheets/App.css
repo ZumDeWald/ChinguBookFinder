@@ -51,17 +51,17 @@ a:active {
 #search {
   grid-column: c1 / c2;
   grid-row: r1 / r2;
+  display: flex;
+  flex-flow:column nowrap;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   margin: 0;
   background: radial-gradient(circle at 50%, var(--color-light), var(--color-main));
 }
 
 .search-bar {
-  display: flex;
-  flex-flow:column nowrap;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+  position: relative;
   margin: 1em auto;
 }
 
@@ -74,13 +74,23 @@ a:active {
 
 .search-input {
   width: 200px;
-  padding: 0.5em;
+  padding: 0.5em 0.9em 0.5em 0.5em;
   margin: auto;
   background-color: #000;
   color: #fff;
   border: solid 1px #000;
   border-radius: 1em;
   text-align: center;
+}
+
+.search-icon {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  height: 70%;
+  padding-left: 0.2em;
+  border-left: solid 1px #fff;
+  color: #fff;
 }
 
 #results {

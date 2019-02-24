@@ -53,8 +53,9 @@ class App extends Component {
     return (
       <main id="app-container">
         <section id="search">
-          <div className="search-bar">
-            <h1 className="header">The 10 Book Search</h1>
+          <h1 className="header">The 10 Book Search</h1>
+          <span className="search-bar">
+            <i className="fas fa-search search-icon"></i>
             <input
               className="search-input"
               type="text"
@@ -63,8 +64,9 @@ class App extends Component {
               onChange={(e) => this.updateQuery(e.target.value)}
               onKeyPress={this.handleKeyPress}
             />
-          </div>
+          </span>
         </section>
+
         <section id="results">
           {/* Ternary to display message or results dependant on if this.state.results empty */
             (!results) ?
