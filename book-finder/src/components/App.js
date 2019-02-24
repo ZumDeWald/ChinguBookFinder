@@ -51,6 +51,11 @@ class App extends Component {
     this.getResults(this.state.query);
   };
 
+  //Handle move screen to top of window
+  toTop = (e) => {
+    window.scrollTo(0,0);
+  }
+
   render() {
     //Destructuring
     const { results, query } = this.state;
@@ -60,7 +65,7 @@ class App extends Component {
         <section id="search">
           <h1 className="header">The 10 Book Search</h1>
           <span className="search-bar">
-            <i className="fas fa-search search-icon"
+            <i className="fas fa-search search-icon pointer"
                onClick={this.handleClick}></i>
             <input
               className="search-input"
@@ -114,6 +119,8 @@ class App extends Component {
             ))}
           </ul>)
           /* End of search criteria Ternary */}
+          <i className="fas fa-angle-double-up top-icon pointer"
+             onClick={this.toTop}></i>
         </section>
         <section id="footer">
           <a href="https://github.com/ZumDeWald/ChinguBookFinder"

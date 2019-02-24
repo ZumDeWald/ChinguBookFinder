@@ -38,6 +38,10 @@ a:active {
   --font: 'Titillium Web', sans-serif;
 }
 
+.pointer:hover {
+  cursor:pointer;
+}
+
 /* Grid setup on App Container */
 #app-container {
   display: grid;
@@ -93,10 +97,6 @@ a:active {
   color: #fff;
 }
 
-.search-icon:hover {
-  cursor:pointer;
-}
-
 #results {
   grid-column: c1 / c2;
   grid-row: r2 / r3;
@@ -116,6 +116,7 @@ a:active {
 
 .result-list {
   list-style: none;
+  box-sizing: border-box;
   width: 100%;
   margin-left: -25px;
 }
@@ -160,11 +161,25 @@ a:active {
   padding: 0;
   margin: 0;
 }
+.top-icon {
+  position: fixed;
+  right: 1em;
+  bottom: 1.5em;
+  padding: 0.2em;
+  margin: 0;
+  font-size: 1.2em;
+  color: var(--color-second);
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 20%;
+}
 
 #footer {
   grid-column: c1 / c2;
   grid-row: r3 / r4;
   width: 100%;
+  padding: 0;
+  margin: 0;
   border-top: solid 2px #000;
   text-align: center;
 }
