@@ -13,6 +13,28 @@ class App extends Component {
     }
   };
 
+  componentDidMount () {
+    //Scroll triggers showing the top-icon function
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount () {
+    //Removes listener on unmount
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  //Shows / hides top-icon on scroll
+  handleScroll = () => {
+    let scrollAmount = (document.body.scrollTop + document.documentElement.scrollTop);
+    const topIcon = document.getElementsByClassName("top-icon")[0];
+
+    if (scrollAmount > 10) {
+      topIcon.classList.remove("hide");
+    } else {
+      topIcon.classList.add("hide");
+    }
+  }
+
   //updateQuery listens for the change in input and sets state
   updateQuery = (query) => {
     this.setState({ query : query });
@@ -52,6 +74,7 @@ class App extends Component {
   toTop = (e) => {
     window.scrollTo(0,0);
   }
+
 
   render() {
     //Destructuring
@@ -116,7 +139,7 @@ class App extends Component {
             ))}
           </ul>)
           /* End of search criteria Ternary */}
-          <i className="fas fa-angle-double-up top-icon pointer"
+          <i className="fas fa-angle-double-up top-icon pointer hide"
              onClick={this.toTop}></i>
         </section>
         <section id="footer">
