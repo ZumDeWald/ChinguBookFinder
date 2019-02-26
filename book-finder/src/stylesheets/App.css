@@ -181,14 +181,13 @@ a:active {
 }
 .top-icon {
   position: fixed;
-  right: 1em;
+  right: 0.9em;
   bottom: 1.5em;
   padding: 0.2em;
   margin: 0;
-  font-size: 1.2em;
+  font-size: 1.5em;
   color: var(--blue-dark);
   background-color: #fff;
-  border: 1px solid #000;
   border-radius: 20%;
   transition-duration: 500ms;
 }
@@ -216,6 +215,11 @@ a:active {
 
   .result-item {
     border: none;
+  }
+
+  .top-icon {
+    font-size: 2em;
+    background-color: transparent;
   }
 
 }
