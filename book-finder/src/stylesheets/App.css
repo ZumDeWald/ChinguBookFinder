@@ -44,6 +44,10 @@ a:active {
   cursor:pointer;
 }
 
+.hide {
+  opacity: 0.0;
+}
+
 /* Grid setup on App Container */
 #app-container {
   display: grid;
@@ -186,6 +190,7 @@ a:active {
   background-color: #fff;
   border: 1px solid #000;
   border-radius: 20%;
+  transition-duration: 500ms;
 }
 
 #footer {
