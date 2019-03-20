@@ -63,7 +63,11 @@ class App extends Component {
     this.setState({ results : response })
   };
 
-  //Fetch API request
+  /**
+   * @async fetch API call
+   * @param  { string } searchInput String to pass into API call
+   * @return { object } returns an HTTP response, then data is extracted into JSON
+   */
   getResults = (searchInput) => {
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}&maxResults=10`)
     .then( response => {
@@ -76,19 +80,30 @@ class App extends Component {
     .catch( error => console.log(error));
   };
 
-  //Handle key press from search bar
+  /**
+   * @function handleKeyPress - Fires getResults function if user presses enter key
+   * @param { event } e - event
+   * @fires getResults
+   */
   handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       this.getResults(this.state.query);
     };
   };
 
-  //Handle click from search-bar icon
+  /**
+   * @function handleClick - Fires getResults function if user clicks on button
+   * @param { event } e - event
+   * @fires getResults
+   */
   handleClick = (e) => {
     this.getResults(this.state.query);
   };
 
-  //Handle move screen to top of window
+  /**
+   * @function toTop - Handles scrolling window to the top
+   * @param { event } e - event
+   */
   toTop = (e) => {
     window.scrollTo(0,0);
   }
