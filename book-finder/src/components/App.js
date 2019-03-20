@@ -64,7 +64,7 @@ class App extends Component {
   };
 
   /**
-   * @async fetch API call
+   * @async
    * @param  { string } searchInput String to pass into API call
    * @return { object } returns an HTTP response, then data is extracted into JSON
    */
