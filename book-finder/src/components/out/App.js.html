@@ -1,4 +1,32 @@
-import React, { Component } from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: App.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: App.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { Component } from 'react';
 
 //Stylesheets
 import '../stylesheets/App.css';
@@ -57,7 +85,7 @@ class App extends Component {
 
   //Fetch API request
   getResults = (searchInput) => {
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}&maxResults=10`)
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}&amp;maxResults=10`)
     .then( response => {
       response.json()
       .then((responseData) => {
@@ -91,13 +119,13 @@ class App extends Component {
     const { results, query } = this.state;
 
     return (
-      <main id="app-container">
-        <section id="search">
-          <h1 className="header">The 10 Book Search</h1>
-          <span className="search-bar">
-            <i className="fas fa-search search-icon pointer"
-               onClick={this.handleClick}></i>
-            <input
+      &lt;main id="app-container">
+        &lt;section id="search">
+          &lt;h1 className="header">The 10 Book Search&lt;/h1>
+          &lt;span className="search-bar">
+            &lt;i className="fas fa-search search-icon pointer"
+               onClick={this.handleClick}>&lt;/i>
+            &lt;input
               className="search-input"
               type="text"
               placeholder="Type keyword and press enter"
@@ -105,62 +133,85 @@ class App extends Component {
               onChange={(e) => this.updateQuery(e.target.value)}
               onKeyPress={this.handleKeyPress}
             />
-          </span>
-        </section>
+          &lt;/span>
+        &lt;/section>
 
-        <section id="results">
+        &lt;section id="results">
           {/* Ternary to display message or results dependant on if this.state.results empty */
             (!results) ?
-          <div className="no-result">Please provide a search term</div> :
-          (<ul className="result-list">
+          &lt;div className="no-result">Please provide a search term&lt;/div> :
+          (&lt;ul className="result-list">
             {results.map( (result, index) => (
-            <li className="result-item"
+            &lt;li className="result-item"
                  key={index}>
 
               {/* Ternary to display cover if available */
               (!!result.volumeInfo.imageLinks) ?
-              <img alt={index}
+              &lt;img alt={index}
                    className="result-image"
                    src={result.volumeInfo.imageLinks.smallThumbnail} />
-                : <img alt={index} src="http://via.placeholder.com/128x193?text=No%20Cover" />
+                : &lt;img alt={index} src="http://via.placeholder.com/128x193?text=No%20Cover" />
               /* End of cover ternary */}
 
-                <span className="result-item-info">
-                  <h4 className="result-title"><strong> {result.volumeInfo.title} </strong></h4>
+                &lt;span className="result-item-info">
+                  &lt;h4 className="result-title">&lt;strong> {result.volumeInfo.title} &lt;/strong>&lt;/h4>
 
                   {/* Ternary to display author if available */
                   (!!result.volumeInfo.authors) ?
-                  <p className="result-info">
-                  <em>{result.volumeInfo.authors[0]}</em></p>
-                  : <p className="result-info">
-                  <em>Author Unavailable</em></p>
+                  &lt;p className="result-info">
+                  &lt;em>{result.volumeInfo.authors[0]}&lt;/em>&lt;/p>
+                  : &lt;p className="result-info">
+                  &lt;em>Author Unavailable&lt;/em>&lt;/p>
                   /* End of author ternary */}
 
                   {/* Ternary to display price if availabe */ (!!result.saleInfo.listPrice) ?
-                  <p className="result-info">Price: {result.saleInfo.listPrice.amount}</p>
-                  : <p className="result-info">Not for sale</p>
+                  &lt;p className="result-info">Price: {result.saleInfo.listPrice.amount}&lt;/p>
+                  : &lt;p className="result-info">Not for sale&lt;/p>
                   /* End of price ternary */}
 
-                  <a href={result.volumeInfo.infoLink}
+                  &lt;a href={result.volumeInfo.infoLink}
                     target="_blank"
-                    rel="noopener noreferrer">More Info</a>
-                </span>
-              </li>
+                    rel="noopener noreferrer">More Info&lt;/a>
+                &lt;/span>
+              &lt;/li>
             ))}
-          </ul>)
+          &lt;/ul>)
           /* End of search criteria Ternary */}
-          <i className="fas fa-angle-double-up top-icon pointer hide"
-             onClick={this.toTop}></i>
-        </section>
-        <section id="footer">
-          <a href="https://github.com/ZumDeWald/ChinguBookFinder"
+          &lt;i className="fas fa-angle-double-up top-icon pointer hide"
+             onClick={this.toTop}>&lt;/i>
+        &lt;/section>
+        &lt;section id="footer">
+          &lt;a href="https://github.com/ZumDeWald/ChinguBookFinder"
              target="_blank"
              rel="noopener noreferrer"
-             >Source Code</a>
-        </section>
-      </main>
+             >Source Code&lt;/a>
+        &lt;/section>
+      &lt;/main>
     );
   }
 }
 
 export default App;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#Shows/hidestop-icononscroll">Shows / hides top-icon on scroll</a></li><li><a href="global.html#updateQuerylistensforthechangeininputandsetsstate">updateQuery listens for the change in input and sets state</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Mar 19 2019 15:50:03 GMT-0500 (CDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
