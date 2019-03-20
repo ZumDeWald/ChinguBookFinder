@@ -46,15 +46,19 @@ class App extends Component {
   }
 
   /**
-    @function updateQuery listens for the change in input and sets state
-    @param {string} search term
-    @return update to state
+   * @function updateQuery listens for the change in input and sets state
+   * @param {string} query - Search criteria
+   * @returns update to query in state
    */
   updateQuery = (query) => {
     this.setState({ query : query });
   };
 
-  //Setstate with current results from search
+  /**
+   * @function updateResults Adds response from search to results in state
+   * @param  { object } response - Response object containing data
+   * @return update to result in state
+   */
   updateResults = (response) => {
     this.setState({ results : response })
   };
