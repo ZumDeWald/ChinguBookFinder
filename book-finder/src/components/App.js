@@ -5,6 +5,10 @@ import '../stylesheets/App.css';
 
 class App extends Component {
 
+  /**
+   * @property { object } results - Object containing the search results
+   * @property { string } query - String containing the search criteria
+   */
   constructor(props){
     super(props);
     this.state = {
@@ -13,17 +17,57 @@ class App extends Component {
     }
   };
 
-  //updateQuery listens for the change in input and sets state
+  /**
+   * @event listener - Adds scroll event listener on component mount
+   */
+  componentDidMount () {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  /**
+   * @event listener - Removes scroll event listener on component unmount
+   */
+  componentWillUnmount () {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  /**
+   * @function Shows / hides top-icon on scroll
+   */
+  handleScroll = () => {
+    let scrollAmount = (document.body.scrollTop + document.documentElement.scrollTop);
+    const topIcon = document.getElementsByClassName("top-icon")[0];
+
+    if (scrollAmount > 10) {
+      topIcon.classList.remove("hide");
+    } else {
+      topIcon.classList.add("hide");
+    }
+  }
+
+  /**
+   * @function updateQuery listens for the change in input and sets state
+   * @param {string} query - Search criteria
+   * @returns update to query in state
+   */
   updateQuery = (query) => {
     this.setState({ query : query });
   };
 
-  //Setstate with current results from search
+  /**
+   * @function updateResults Adds response from search to results in state
+   * @param  { object } response - Response object containing data
+   * @return update to result in state
+   */
   updateResults = (response) => {
     this.setState({ results : response })
   };
 
-  //Fetch API request
+  /**
+   * @async
+   * @param  { string } searchInput String to pass into API call
+   * @return { object } returns an HTTP response, then data is extracted into JSON
+   */
   getResults = (searchInput) => {
     fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}&maxResults=10`)
     .then( response => {
@@ -36,22 +80,34 @@ class App extends Component {
     .catch( error => console.log(error));
   };
 
-  //Handle key press from search bar
+  /**
+   * @function handleKeyPress - Fires getResults function if user presses enter key
+   * @param { event } e - event
+   * @fires getResults
+   */
   handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       this.getResults(this.state.query);
     };
   };
 
-  //Handle click from search-bar icon
+  /**
+   * @function handleClick - Fires getResults function if user clicks on button
+   * @param { event } e - event
+   * @fires getResults
+   */
   handleClick = (e) => {
     this.getResults(this.state.query);
   };
 
-  //Handle move screen to top of window
+  /**
+   * @function toTop - Handles scrolling window to the top
+   * @param { event } e - event
+   */
   toTop = (e) => {
     window.scrollTo(0,0);
   }
+
 
   render() {
     //Destructuring
@@ -116,7 +172,7 @@ class App extends Component {
             ))}
           </ul>)
           /* End of search criteria Ternary */}
-          <i className="fas fa-angle-double-up top-icon pointer"
+          <i className="fas fa-angle-double-up top-icon pointer hide"
              onClick={this.toTop}></i>
         </section>
         <section id="footer">

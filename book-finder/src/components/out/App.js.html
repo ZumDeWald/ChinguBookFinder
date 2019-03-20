@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: App.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: App.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { Component } from 'react';
+
+//Stylesheets
+import '../stylesheets/App.css';
+
+class App extends Component {
+
+  /**
+   * @property { object } results - Object containing the search results
+   * @property { string } query - String containing the search criteria
+   */
+  constructor(props){
+    super(props);
+    this.state = {
+      results: null,
+      query: ''
+    }
+  };
+
+  /**
+   * @event listener - Adds scroll event listener on component mount
+   */
+  componentDidMount () {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  /**
+   * @event listener - Removes scroll event listener on component unmount
+   */
+  componentWillUnmount () {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  /**
+   * @function Shows / hides top-icon on scroll
+   */
+  handleScroll = () => {
+    let scrollAmount = (document.body.scrollTop + document.documentElement.scrollTop);
+    const topIcon = document.getElementsByClassName("top-icon")[0];
+
+    if (scrollAmount > 10) {
+      topIcon.classList.remove("hide");
+    } else {
+      topIcon.classList.add("hide");
+    }
+  }
+
+  /**
+   * @function updateQuery listens for the change in input and sets state
+   * @param {string} query - Search criteria
+   * @returns update to query in state
+   */
+  updateQuery = (query) => {
+    this.setState({ query : query });
+  };
+
+  /**
+   * @function updateResults Adds response from search to results in state
+   * @param  { object } response - Response object containing data
+   * @return update to result in state
+   */
+  updateResults = (response) => {
+    this.setState({ results : response })
+  };
+
+  /**
+   * @async
+   * @param  { string } searchInput String to pass into API call
+   * @return { object } returns an HTTP response, then data is extracted into JSON
+   */
+  getResults = (searchInput) => {
+    fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}&amp;maxResults=10`)
+    .then( response => {
+      response.json()
+      .then((responseData) => {
+        let results = responseData.items
+        this.updateResults(results);
+      })
+    })
+    .catch( error => console.log(error));
+  };
+
+  /**
+   * @function handleKeyPress - Fires getResults function if user presses enter key
+   * @param { event } e - event
+   * @fires getResults
+   */
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      this.getResults(this.state.query);
+    };
+  };
+
+  /**
+   * @function handleClick - Fires getResults function if user clicks on button
+   * @param { event } e - event
+   * @fires getResults
+   */
+  handleClick = (e) => {
+    this.getResults(this.state.query);
+  };
+
+  /**
+   * @function toTop - Handles scrolling window to the top
+   * @param { event } e - event
+   */
+  toTop = (e) => {
+    window.scrollTo(0,0);
+  }
+
+
+  render() {
+    //Destructuring
+    const { results, query } = this.state;
+
+    return (
+      &lt;main id="app-container">
+        &lt;section id="search">
+          &lt;h1 className="header">The 10 Book Search&lt;/h1>
+          &lt;span className="search-bar">
+            &lt;i className="fas fa-search search-icon pointer"
+               onClick={this.handleClick}>&lt;/i>
+            &lt;input
+              className="search-input"
+              type="text"
+              placeholder="Type keyword and press enter"
+              value={query}
+              onChange={(e) => this.updateQuery(e.target.value)}
+              onKeyPress={this.handleKeyPress}
+            />
+          &lt;/span>
+        &lt;/section>
+
+        &lt;section id="results">
+          {/* Ternary to display message or results dependant on if this.state.results empty */
+            (!results) ?
+          &lt;div className="no-result">Please provide a search term&lt;/div> :
+          (&lt;ul className="result-list">
+            {results.map( (result, index) => (
+            &lt;li className="result-item"
+                 key={index}>
+
+              {/* Ternary to display cover if available */
+              (!!result.volumeInfo.imageLinks) ?
+              &lt;img alt={index}
+                   className="result-image"
+                   src={result.volumeInfo.imageLinks.smallThumbnail} />
+                : &lt;img alt={index} src="http://via.placeholder.com/128x193?text=No%20Cover" />
+              /* End of cover ternary */}
+
+                &lt;span className="result-item-info">
+                  &lt;h4 className="result-title">&lt;strong> {result.volumeInfo.title} &lt;/strong>&lt;/h4>
+
+                  {/* Ternary to display author if available */
+                  (!!result.volumeInfo.authors) ?
+                  &lt;p className="result-info">
+                  &lt;em>{result.volumeInfo.authors[0]}&lt;/em>&lt;/p>
+                  : &lt;p className="result-info">
+                  &lt;em>Author Unavailable&lt;/em>&lt;/p>
+                  /* End of author ternary */}
+
+                  {/* Ternary to display price if availabe */ (!!result.saleInfo.listPrice) ?
+                  &lt;p className="result-info">Price: {result.saleInfo.listPrice.amount}&lt;/p>
+                  : &lt;p className="result-info">Not for sale&lt;/p>
+                  /* End of price ternary */}
+
+                  &lt;a href={result.volumeInfo.infoLink}
+                    target="_blank"
+                    rel="noopener noreferrer">More Info&lt;/a>
+                &lt;/span>
+              &lt;/li>
+            ))}
+          &lt;/ul>)
+          /* End of search criteria Ternary */}
+          &lt;i className="fas fa-angle-double-up top-icon pointer hide"
+             onClick={this.toTop}>&lt;/i>
+        &lt;/section>
+        &lt;section id="footer">
+          &lt;a href="https://github.com/ZumDeWald/ChinguBookFinder"
+             target="_blank"
+             rel="noopener noreferrer"
+             >Source Code&lt;/a>
+        &lt;/section>
+      &lt;/main>
+    );
+  }
+}
+
+export default App;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li></ul><h3>Events</h3><ul><li><a href="global.html#event:listener-Addsscrolleventlisteneroncomponentmount">listener - Adds scroll event listener on component mount</a></li><li><a href="global.html#event:listener-Removesscrolleventlisteneroncomponentunmount">listener - Removes scroll event listener on component unmount</a></li></ul><h3>Global</h3><ul><li><a href="global.html#handleClick-FiresgetResultsfunctionifuserclicksonbutton">handleClick - Fires getResults function if user clicks on button</a></li><li><a href="global.html#handleKeyPress-FiresgetResultsfunctionifuserpressesenterkey">handleKeyPress - Fires getResults function if user presses enter key</a></li><li><a href="global.html#Shows/hidestop-icononscroll">Shows / hides top-icon on scroll</a></li><li><a href="global.html#toTop-Handlesscrollingwindowtothetop">toTop - Handles scrolling window to the top</a></li><li><a href="global.html#updateQuerylistensforthechangeininputandsetsstate">updateQuery listens for the change in input and sets state</a></li><li><a href="global.html#updateResultsAddsresponsefromsearchtoresultsinstate">updateResults Adds response from search to results in state</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Mar 19 2019 23:14:46 GMT-0500 (CDT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
