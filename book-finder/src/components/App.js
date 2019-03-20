@@ -5,6 +5,10 @@ import '../stylesheets/App.css';
 
 class App extends Component {
 
+  /**
+   * @property { object } results - Object containing the search results
+   * @property { string } query - String containing the search criteria
+   */
   constructor(props){
     super(props);
     this.state = {
@@ -14,14 +18,14 @@ class App extends Component {
   };
 
   /**
-   * @description componentWillUnmount triggers showing the top-icon function
+   * @event listener - Adds scroll event listener on component mount
    */
   componentDidMount () {
     window.addEventListener('scroll', this.handleScroll);
   }
 
   /**
-   * @description componentWillUnmount removes listener on unmount
+   * @event listener - Removes scroll event listener on component unmount
    */
   componentWillUnmount () {
     window.removeEventListener('scroll', this.handleScroll);
